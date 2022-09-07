@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false ,
+  urlBackend:'http://localhost:3000/',
+  urlplayement:'https://api.preprod.konnect.network/api/v2/payments/init-payment'
 };
 
 /*

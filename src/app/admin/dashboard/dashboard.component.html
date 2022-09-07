@@ -1,18 +1,59 @@
-
 <app-admin-header></app-admin-header>
-<app-sidebar></app-sidebar>
-  
-  <main role="main">
-    
-  <section class="panel important">
 
-    <h1>Com&Dev Statistic</h1>
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img src="./assets/images/person_5.jpg" width="100"  class="img-fluid rounded-circle" />
 
+      </div><br>
+      <h4 class="name">Webmaster</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
     
-   
+    </div>
+    <nav class="nav flex-column">
+      <a routerLink="/dashboard-admin" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a routerLink="/categories" class="nav-link"><i class="fas fa-photo-video"></i> All Categories </a>
+ 
+
+        <a  routerLink="/missions" class="nav-link" ><i  class="fas fa-briefcase"></i>All Missions  </a>  
+        <a  routerLink="/allskills" class="nav-link" ><i  class="fas fa-language"></i>All Skills  </a>  
+        <a routerLink="/allusers" class="nav-link" ><i  class="fas fa-users"></i>All Users  </a>  
+ 
+        <a routerLink="/profil-admin"  class="nav-link" ><i class="fas fa-cogs"></i>Settings  </a>  
+        
+
+       
+
+
+        <div class="nav-item-divider"></div>
+        <a  class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Dashboard Webmaster
+        </div>
+      </div>
     </section>
-    
 
-  
-  </main>
-  
+    <div class="container-fluid">    
+      <div style="display: block" *ngIf="chartReady">
+          <canvas mdbChart  
+            [chartType]="chartType"
+            [datasets]="chartDatasets"
+            [labels]="chartLabels"
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="true"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+  </div>
+  </div>
+</section>

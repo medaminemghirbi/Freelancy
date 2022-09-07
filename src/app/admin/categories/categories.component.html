@@ -1,0 +1,201 @@
+<app-admin-header></app-admin-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img src="./assets/images/person_5.jpg" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Webmaster</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+      <a routerLink="/dashboard-admin" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a routerLink="/categories" class="nav-link"><i class="fas fa-photo-video"></i> All Categories </a>
+ 
+
+        <a  routerLink="/missions" class="nav-link" ><i  class="fas fa-briefcase"></i>All Missions  </a>  
+        <a  routerLink="/allskills" class="nav-link" ><i  class="fas fa-language"></i>All Skills  </a>  
+        <a routerLink="/allusers" class="nav-link" ><i  class="fas fa-users"></i>All Users  </a>  
+ 
+        <a routerLink="/profil-admin"  class="nav-link" ><i class="fas fa-cogs"></i>Settings  </a>  
+        
+
+       
+
+
+        <div class="nav-item-divider"></div>
+        <a  class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Categories
+        </div>
+      </div>
+    </section>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Categories ({{counter}})  </h6>
+    </div>
+    <form
+    class="card-header py-3" >
+    <div class="input-group">
+        <input type="text" name="role" size="50" class="form-control" [(ngModel)]="searchedKeyword"  placeholder="Search for..." >
+      
+    </div>
+    </form>
+    <div align="right" >
+      <br>
+        <button class="btn btn-outline-dark btn-lg" data-toggle="modal" data-target="#exampleModal1"  > Add Category  </button>&nbsp;&nbsp;
+       </div><br>
+        <div class="table-responsive">
+            <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+                <thead>
+
+                    <tr>
+                       
+                        <th scope="col" (click)="sort('id')" ># ID &nbsp;<i class="fa fa-sort"> </i>  </th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Avatar</th>
+                        <th scope="col"> created_at</th>
+                        <th scope="col"> updated_at</th>
+                        <th colspan="2">Actions </th>
+  
+                    </tr>
+                </thead>
+               
+                <tbody>
+                  
+                    <tr *ngFor="let item of dataArray| paginate: { itemsPerPage: 5, currentPage: p }   | filter:searchedKeyword ; index as i" >
+                        <th scope="row"  > {{item.id}} </th>
+                        <td> {{item.name}} </td>
+                        <td> {{item.name}} </td>
+                        <td> <img  height="100" [src]="item.image_url" alt="" class="card-img-top"></td>
+                        <td> {{item.created_at | date:'medium'}}  </td>
+                        <td> {{item.updated_at | date:'medium'}}  </td>
+                        <td>  
+                           <button  (click)="getdata(item.name,item.image_url,item.id)"  class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"  > update </button>&nbsp;&nbsp;
+                          </td>
+                          <td>
+                          <button (click)="delete(item.id , i)" class="btn btn-outline-danger"> delete </button> 
+                       </td>
+                       
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:right;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- form update start here -->
+          <form [formGroup]="update" #f="ngForm" (ngSubmit)="updatenewcat (f); f.reset()" >
+     
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Name  </label>
+              <input type="text"  class="form-control"  formControlName="name" [(ngModel)]="dataCat.name"  ngModel>
+            </div>
+           <!-- <div [hidden]='name.valid || name.pristine' class="alert alert-danger" role="alert" >
+                name is required
+            </div>-->
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Avatar  </label>
+              
+            <input type="file" 
+            (change)="fileChange($event)"  class="form-control"  formControlName="avatar"  [(ngModel)]="dataCat.avatar" ngModel rows="3"   /> 
+            
+            </div>
+           <!-- <div [hidden]='avatar.valid || avatar.pristine' class="alert alert-danger"role="alert" >
+                image is required
+            </div>-->
+           
+          
+            <br>
+            <div class="form-group">
+  
+                <button [disabled]="f.invalid" [hidden]="submitted" class="btn btn-danger" type="submit">save</button>
+            </div>
+            <div class="alert alert-danger" [hidden]="!submitted" role="alert"> 
+              Your post has been successfully created. 
+              <a routerLink="/categories" class="alert-link" > View all categories </a>
+            </div>
+          </form>
+  
+  
+          <!-- form update end here -->
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add  Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- form update start here -->
+          <form [formGroup]="addcategorie" #f="ngForm" (ngSubmit)="addcategory (f); f.reset()" >
+     
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Title  </label>
+              <input type="text" name="name" class="form-control"  formControlName="name"   required>
+            </div>
+           <!-- <div [hidden]='name.valid || name.pristine' class="alert alert-danger" role="alert" >
+                name is required
+            </div>-->
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Avatar  </label>
+              
+              <input type="file" 
+              (change)="fileChangeadd($event)" formControlName="avatar" class="form-control"  formControlName="avatar"   rows="3"   required /> 
+              
+            </div>
+           <!-- <div [hidden]='avatar.valid || avatar.pristine' class="alert alert-danger"role="alert" >
+                image is required
+            </div>-->
+           
+          
+  <br>
+            <div class="form-group">
+  
+                <button [disabled]="f.invalid" [hidden]="submitted" class="btn btn-danger" type="submit">save</button>
+            </div>
+          <!--  <div class="alert alert-danger" [hidden]="!submitted" role="alert"> 
+              Your post has been successfully created. 
+              <a routerLink="/categories" class="alert-link" > View all categories </a>
+            </div>-->
+          </form>
+  
+  
+          <!-- form update end here -->
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

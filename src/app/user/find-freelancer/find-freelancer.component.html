@@ -1,0 +1,186 @@
+
+<body id="top">
+
+    <div class="site-wrap">
+  
+        <div class="site-mobile-menu site-navbar-target">
+          <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+              <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+          </div>
+          <div class="site-mobile-menu-body"></div>
+        </div> <!-- .site-mobile-menu -->
+        
+    
+        <!-- NAVBAR -->
+  <app-navbar-user></app-navbar-user>
+  <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+    </div>
+  </section>
+  <section class="site-section" id="next-section">
+    <div class="container">
+        <section id="sidebar"> 
+            <p> Home | <b> All Freelancers  </b></p>
+            <div class="border-bottom pb-2 ml-2">
+                <h4 id="burgundy"> Filters  </h4>
+            </div>
+           <br>
+            <div class="border-bottom pb-2 ml-2">
+              <div class="form-group">
+                <h6 class="font-weight-bold">Language</h6>
+                <div id="orange"><span class="fa fa-minus"></span></div>
+               
+               <!-- <form class="formSteps" [formGroup]="stepOneOfOneForm" >
+                  <ng-select 
+                  [multiple]="true"
+                   placeholder="Select Language"
+                      formControlName="language_id"
+                      name="language_id"
+                        [(ngModel)]="selectedDefaultLanguage"
+                        (change)="getfreelancerbylanguage()" 
+                          >
+                    <ng-option *ngFor="let l of languages" [value]="l.id"   >
+                       {{l.name}} 
+                
+                    </ng-option>
+                    
+                 </ng-select>
+                  </form>-->
+                                
+              </div>
+              </div>
+          
+            <br>
+          
+            <div class="py-3">
+              <h5 class="font-weight-bold">Rating</h5>
+             <form >
+              <div class="form-group"   >  
+                <input  type="radio" value="" name="1" id="exampleCheck1" >  &nbsp;
+                <label for="artisan">All </label>      
+            </div>
+            <div class="form-group"   >  
+              <input type="radio" value="1" name="1" id="exampleCheck1" >  &nbsp;
+              <label for="artisan">More Than 1 <i class="fas fa-star" style=" color: rgb(10, 10, 94);"></i>  </label>      
+            </div>
+              <div class="form-group"   >  
+                  <input type="radio" value="5" name="1" id="exampleCheck1" >  &nbsp;
+                  <label for="artisan">More Than 5 <i class="fas fa-star" style=" color: rgb(10, 10, 94);"></i>  </label>      
+              </div>
+              <div class="form-group"   >  
+                  <input  type="radio" value="10" name="1" id="exampleCheck1" >  &nbsp;
+                  <label for="artisan">More Than 10 <i class="fas fa-star" style=" color: rgb(10, 10, 94);"></i> </label>      
+              </div>
+            <div class="form-group"   >  
+                <input  type="radio" value="50" name="1" id="exampleCheck1" >  &nbsp;
+                <label for="artisan">More Than 50 <i class="fas fa-star" style=" color: rgb(10, 10, 94);"></i>  </label>      
+            </div>
+            <div class="form-group"   >  
+              <input  type="radio" value="100" name="1" id="exampleCheck1" >  &nbsp;
+              <label for="artisan">More Than 100 <i class="fas fa-star" style=" color: rgb(10, 10, 94);"></i> </label>      
+          </div>   
+                
+          </form>
+          </div>
+          
+            
+          </section>
+          <!-- products section -->
+          <div class="container">
+            <div class="row">
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                <div class="our-team">
+                  <div class="picture">
+                    <a >  <img class="img-fluid" [src]=""></a>
+                  </div> 
+                  <div class="team-content">
+                    <h4 class="name">test </h4>
+                    <h4 class="title"  > data.description</h4>
+                    <h4 class="title"  > data.earning DT / jour</h4>
+                  </div>
+ 
+                </div>
+              </div>
+             
+            
+             
+            </div>
+            </div>
+    </div>
+  </section>
+  <app-footer-user></app-footer-user>
+
+  </div>
+
+  
+    
+         
+      </body>
+  
