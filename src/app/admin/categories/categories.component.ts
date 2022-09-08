@@ -27,6 +27,7 @@ export class CategoriesComponent implements OnInit {
   dataCat={
     id : '',
     name:'',
+    description:'',
     avatar:'' ,
    /* averagePayment:0 ,
     period:0,
@@ -34,26 +35,31 @@ export class CategoriesComponent implements OnInit {
     end_date:'',
     */
   }
-
+  admindata:any
   update! :  FormGroup;
 
 
   constructor(private usersService:UsersService,private route:Router) { 
+
+    this.admindata = JSON.parse( sessionStorage.getItem('admindata') !);
     this.update = new FormGroup({
       name: new FormControl(''),
       avatar: new FormControl(''),
+      description:new FormControl(''),
     });
     this.addcategorie = new FormGroup({
       name: new FormControl('', [Validators.required]),
       avatar: new FormControl('', [Validators.required]),
+      description:new FormControl('', [Validators.required]),
     });
   }
 
   ngOnInit(): void {
     this.usersService.getAllcategories().subscribe(data=>{
-      // debugger
+       
       
       this.dataArray=data 
+      debugger
       this.counter = this.dataArray.length, (err:HttpErrorResponse)=>{
       this.messageErr="We dont't found this category in our database"} 
     }) 
@@ -95,9 +101,10 @@ export class CategoriesComponent implements OnInit {
     
   }
 
-  getdata(name:string,image_url:string,id:any){
+  getdata(name:string,description:string,image_url:string,id:any){
     this.messageSuccess=''
     this.dataCat.name= name 
+    this.dataCat.description = description
     this.dataCat.avatar =image_url 
     this.dataCat.id= id 
 
@@ -112,6 +119,7 @@ export class CategoriesComponent implements OnInit {
     const formData = new FormData();
     formData.append('avatar', this.image );
     formData.append('name', this.update.value.name);
+    formData.append('description',this.update.value.description);
     Swal.fire({
       title: 'Do you want to save the changes?',
       showDenyButton: true,
@@ -148,6 +156,7 @@ addcategory (f:any){
   const formData = new FormData();
   formData.append('avatar', this.image );
   formData.append('name', this.addcategorie.value.name);
+  formData.append('description',this.addcategorie.value.description);
   let data=f.value
   
   
@@ -166,6 +175,11 @@ fileChangeadd(event:any) {
   this.image =event.target.files[0];
   
 }
+logout(){
 
+  this.usersService.logout();
+  this.route.navigate(['/login']);
+ 
+}
 
 }

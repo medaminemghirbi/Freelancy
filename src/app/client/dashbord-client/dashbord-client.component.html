@@ -1,0 +1,153 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Client</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>postulated missions </a>  
+        <a class="nav-link  nav-nav-dropdown-toggle" data-toggle="collapse" data-target="#settingscolaps"
+        aria-expanded="true" aria-controls="collapseTwo"><i class="fas fa-briefcase"></i>  My Mission List  </a>  
+        <div id="settingscolaps" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-black py-2 collapse-inner rounded">              
+                <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> All Missions </a>              
+                <a routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> Active Mission </a>   
+                <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Mission </a>   
+            </div>
+        </div>
+
+ 
+        <a class="nav-link  dashboard-nav-dropdown-toggle" data-toggle="collapse" data-target="#profilcolapse"
+        aria-expanded="true" aria-controls="collapseTwo"><i class="fas fa-cogs"></i>  Settings  </a>  
+        <div id="profilcolapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-black py-2 collapse-inner rounded">              
+                <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> Profil </a>              
+         
+            </div>
+        </div>
+        
+        <a  routerLink="/addmission" class="nav-link  "><i class="fas fa-tachometer-alt"></i> Post New Mission </a>
+       
+
+
+        <div class="nav-item-divider"></div>
+        <a (click)="logout()" class="nav-link "><i class="fas fa-sign-out-alt"></i> Logout </a>
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Dashboard Client
+        </div>
+      </div>
+    </section>
+
+    <div class="container bootstrap snippets bootdey">
+        <div class="panel-body inf-content">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <button (click)="getPdf()"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>
+            </div>
+            <div class="row">
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div routerLink="/missions-client"
+                                     class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        All Missions
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{dataArray.allmissions}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                        routerLink="/postulated-missions-client">
+                                        Not Active Missions </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{dataArray.notactivemissions}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div routerLink="/active-missions-client"
+                                     class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Active Missions
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{dataArray.activemissions}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div  routerLink="/ended-missions-client"
+                                    class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Ended Missions </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{dataArray.endedmissions}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>

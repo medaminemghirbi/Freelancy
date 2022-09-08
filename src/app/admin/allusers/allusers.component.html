@@ -1,0 +1,113 @@
+<app-admin-header></app-admin-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="admindata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Webmaster</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+      <a routerLink="/dashboard-admin" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a routerLink="/categories" class="nav-link"><i class="fas fa-photo-video"></i> All Categories </a>
+ 
+
+        <a  routerLink="/missions" class="nav-link" ><i  class="fas fa-briefcase"></i>All Missions  </a>  
+        <a  routerLink="/allskills" class="nav-link" ><i  class="fas fa-language"></i>All Skills  </a>  
+        <a routerLink="/allusers" class="nav-link" ><i  class="fas fa-users"></i>All Users  </a>  
+ 
+        <a routerLink="/profil-admin"  class="nav-link" ><i class="fas fa-cogs"></i>Settings  </a>  
+        
+
+       
+
+
+        <div class="nav-item-divider"></div>
+        <a (click)="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / All Plateform Users
+        </div>
+      </div>
+    </section>
+
+
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Categories ({{counter}})  </h6>
+      </div>
+      <form
+      class="card-header py-3" >
+      <div class="input-group">
+          <input type="text" name="role" size="50" class="form-control" [(ngModel)]="searchedKeyword"  placeholder="Search for..." >
+        
+      </div>
+      </form>
+
+          <div class="table-responsive">
+              <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+                  <thead>
+  
+                      <tr>
+                         
+                        <th scope="col" (click)="sort('id')" ># ID &nbsp;<i class="fa fa-sort"> </i>  </th>
+                        <th scope="col" (click)="sort('title')" >Email &nbsp;<i class="fa fa-sort"> </i> </th>
+                        <th scope="col" (click)="sort('lastname')" >Last name &nbsp;<i class="fa fa-sort"> </i> </th>
+                        <th scope="col" (click)="sort('firstname')" >First name &nbsp;<i class="fa fa-sort"> </i> </th>
+                        <th scope="col" (click)="sort('role')" >Role  &nbsp;<i class="fa fa-sort"> </i> </th>
+                        <th scope="col" (click)="sort('role')" >Email Confirmed  &nbsp;<i class="fa fa-sort"> </i> </th>
+                        <th scope="col">Actions</th>
+    
+                      </tr>
+                  </thead>
+                 
+                  <tbody>
+                    
+                      
+                    <tr *ngFor="let item of dataArray | paginate: { itemsPerPage: 5, currentPage: p } | filter:searchedKeyword ; index as i" >
+                      <th scope="row" > {{item.id}} </th>
+                        <td> {{item.email}} </td>
+                        <td> {{item.lastname}}</td>
+                        <td> {{item.firstname}}</td>
+                        <td> {{item.role}} </td>
+                        <td  > &nbsp; &nbsp;
+                         
+                          <button *ngIf="item.email_confirmed===null " class="btn btn-outline-danger btn-lg" > false </button>
+                           
+                        
+                          <button *ngIf="item.email_confirmed===true "class="btn btn-outline-success btn-lg" > {{item.email_confirmed}} </button>
+                        </td>
+                        <td>
+                          <div *ngIf="item.role==='client' " > 
+                          <a *ngIf="item.role==='client' " class="text-success"  [routerLink]="['/detail-client',item.id]"  >
+                            <i  class="fas  fa-2x fa-eye"></i> </a> &nbsp;
+                          <a *ngIf="item.role==='client' " class="text-danger" (click)="deleteclient(item.id , i)" > <i class="fas  fa-2x fa-trash-alt"></i> </a>
+                        </div>
+                        <div *ngIf="item.role==='freelancer' " > 
+                          <a *ngIf="item.role==='freelancer' " class="text-success"  [routerLink]="['/detail-freelancer',item.id]"  >
+                             <i  class="fas  fa-2x fa-eye"></i> </a>    
+                            &nbsp;
+                          <a *ngIf="item.role==='freelancer' " class="text-danger" (click)="deleteuser(item.id , i)" > <i class="fas  fa-2x fa-trash-alt"></i> </a>
+                        </div>
+                         
+
+                        </td>
+                      </tr>
+                      
+                  </tbody>
+              </table>
+          </div>
+          <div style="text-align:right;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+  </div>
+</section>

@@ -1,0 +1,126 @@
+<app-admin-header></app-admin-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="admindata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Webmaster</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+      <a routerLink="/dashboard-admin" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a routerLink="/categories" class="nav-link"><i class="fas fa-photo-video"></i> All Categories </a>
+ 
+
+        <a  routerLink="/missions" class="nav-link" ><i  class="fas fa-briefcase"></i>All Missions  </a>  
+        <a  routerLink="/allskills" class="nav-link" ><i  class="fas fa-language"></i>All Skills  </a>  
+        <a routerLink="/allusers" class="nav-link" ><i  class="fas fa-users"></i>All Users  </a>  
+ 
+        <a routerLink="/profil-admin"  class="nav-link" ><i class="fas fa-cogs"></i>Settings  </a>  
+        
+
+       
+
+
+        <div class="nav-item-divider"></div>
+        <a (click)="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / All Plateform  Missions 
+        </div>
+      </div>
+    </section>
+
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Categories ({{counter}})  </h6>
+      </div>
+      <form
+      class="card-header py-3" >
+      <div class="input-group">
+          <input type="text" name="role" size="50" class="form-control" [(ngModel)]="searchedKeyword"  placeholder="Search for..." >
+        
+      </div>
+      </form>
+
+          <div class="table-responsive">
+              <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+                  <thead>
+  
+                      <tr>
+                         
+                        <th scope="col" >Mission_ID </th>
+                        <th scope="col" >Mission title</th>
+                       <!-- <th scope="col"> Languages </th>  --> 
+                        <th scope="col"> Mission description </th>
+                        <th scope="col"> Mission duration </th>                 
+                        <th scope="col">Mission  beginingDate</th>   
+                        <th scope="col">  Mission category </th>                
+                       <!--
+                        <th scope="col"> created_at</th>
+                        <th scope="col"> updated_at</th>
+                        --> 
+                        <th scope="col"> Hired </th> 
+                        <th scope="col"> Completed </th>     
+                        <th colspan="2">Actions</th>
+    
+                      </tr>
+                  </thead>
+                 
+                  <tbody>
+                    
+                    <tr *ngFor="let item of dataArray| paginate: { itemsPerPage: 5, currentPage: p } | filter:searchedKeyword ; index as i" >
+                      <th scope="row" > {{item.id}} </th>
+                        <td> {{item.title}} </td>
+                       <!--   <td>{{item.languages.name}}</td> -->
+                        <td>{{item.description}}</td>
+                        <td> {{item.duration}}</td> 
+                        <td> {{item.beginingDate}}</td> 
+                        
+                        <td> {{item.category.name}}  </td>
+                       <!--
+                           <td> {{item.created_at | date:'medium'}}  </td>
+                        <td> {{item.updated_at | date:'medium'}}  </td>
+                        --> 
+                        <td>
+                          <button *ngIf="item.freelancer_id"
+                              class="btn btn-success">Yes</button>
+                          <button *ngIf="!item.freelancer_id"
+                              class="btn btn-danger">No</button>
+                      </td>
+                        <td>
+                          <button *ngIf="item.completed===true "
+                              class="btn btn-success">{{item.completed}} </button>
+                          <button *ngIf="item.completed===false "
+                              class="btn btn-danger">{{item.completed}} </button>
+                      </td>
+                        <td>  
+                            <button  class="btn btn-outline-success" [routerLink]="['/detail-mission',item.id]" > Show </button> &nbsp;&nbsp;
+                           
+                        </td>
+                        <td>  
+                          <button class="btn btn-outline-danger" (click)="delete(item.id , i)">Delete</button>                                 
+                      </td>
+  
+                       
+                      </tr>
+                 
+                      
+                  </tbody>
+              </table>
+          </div>
+          <div style="text-align:right;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+
+  </div>
+</section>

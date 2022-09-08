@@ -4,7 +4,7 @@
   <div class="sidebar-content text-dark">
     <div class="account">
       <div class="image img-cir img-80">
-        <img src="./assets/images/person_5.jpg" width="100"  class="img-fluid rounded-circle" />
+        <img [src]="admindata.user_image_url" width="100"  class="img-fluid rounded-circle" />
 
       </div><br>
       <h4 class="name">Webmaster</h4>
@@ -27,7 +27,7 @@
 
 
         <div class="nav-item-divider"></div>
-        <a  class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+        <a (click)="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
     </nav>
   </div>
 </div>
@@ -76,12 +76,12 @@
                     <tr *ngFor="let item of dataArray| paginate: { itemsPerPage: 5, currentPage: p }   | filter:searchedKeyword ; index as i" >
                         <th scope="row"  > {{item.id}} </th>
                         <td> {{item.name}} </td>
-                        <td> {{item.name}} </td>
+                        <td> {{item.description}} </td>
                         <td> <img  height="100" [src]="item.image_url" alt="" class="card-img-top"></td>
-                        <td> {{item.created_at | date:'medium'}}  </td>
-                        <td> {{item.updated_at | date:'medium'}}  </td>
+                        <td> {{item.created_at | date:'short'}}  </td>
+                        <td> {{item.updated_at | date:'short'}}  </td>
                         <td>  
-                           <button  (click)="getdata(item.name,item.image_url,item.id)"  class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"  > update </button>&nbsp;&nbsp;
+                           <button  (click)="getdata(item.name,item.description,item.image_url,item.id)"  class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"  > update </button>&nbsp;&nbsp;
                           </td>
                           <td>
                           <button (click)="delete(item.id , i)" class="btn btn-outline-danger"> delete </button> 
@@ -116,6 +116,10 @@
            <!-- <div [hidden]='name.valid || name.pristine' class="alert alert-danger" role="alert" >
                 name is required
             </div>-->
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Description  </label>
+              <input type="text"  class="form-control"  formControlName="description" [(ngModel)]="dataCat.description"  ngModel>
+            </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Avatar  </label>
               
@@ -162,8 +166,12 @@
           <form [formGroup]="addcategorie" #f="ngForm" (ngSubmit)="addcategory (f); f.reset()" >
      
             <div class="form-group">
-              <label for="exampleFormControlInput1">Title  </label>
+              <label for="exampleFormControlInput1">Name  </label>
               <input type="text" name="name" class="form-control"  formControlName="name"   required>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Description  </label>
+              <input type="text" name="description" class="form-control"  formControlName="description"   required>
             </div>
            <!-- <div [hidden]='name.valid || name.pristine' class="alert alert-danger" role="alert" >
                 name is required

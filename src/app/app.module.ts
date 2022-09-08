@@ -23,6 +23,14 @@ import { CategoriesComponent } from './admin/categories/categories.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProfilAdminComponent } from './admin/profil-admin/profil-admin.component';
+import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { AllusersComponent } from './admin/allusers/allusers.component';
+import { MissionsComponent } from './admin/missions/missions.component';
+import { SkillsComponent } from './admin/skills/skills.component';
+import { DashbordClientComponent } from './client/dashbord-client/dashbord-client.component';
+import { ClientHeaderComponent } from './client/client-header/client-header.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +50,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
     FindFreelancerComponent,
      AdminHeaderComponent,
-     CategoriesComponent    
+     CategoriesComponent,
+     ProfilAdminComponent,
+     ForgotPasswordComponent,
+     ResetPasswordComponent,
+     AllusersComponent,
+     MissionsComponent,
+     SkillsComponent,
+     DashbordClientComponent,
+     ClientHeaderComponent    
   ],
   imports: [
     BrowserModule,

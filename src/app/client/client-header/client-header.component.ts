@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-admin-header',
-  templateUrl: './admin-header.component.html',
-  styleUrls: ['./admin-header.component.css']
+  selector: 'app-client-header',
+  templateUrl: './client-header.component.html',
+  styleUrls: ['./client-header.component.css']
 })
-export class AdminHeaderComponent implements OnInit {
+export class ClientHeaderComponent implements OnInit {
   searchedKeyword!:string;
   
 
