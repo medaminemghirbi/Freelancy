@@ -31,6 +31,9 @@ import { MissionsComponent } from './admin/missions/missions.component';
 import { SkillsComponent } from './admin/skills/skills.component';
 import { DashbordClientComponent } from './client/dashbord-client/dashbord-client.component';
 import { ClientHeaderComponent } from './client/client-header/client-header.component';
+import { AddmissionComponent } from './client/addmission/addmission.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,8 @@ import { ClientHeaderComponent } from './client/client-header/client-header.comp
      MissionsComponent,
      SkillsComponent,
      DashbordClientComponent,
-     ClientHeaderComponent    
+     ClientHeaderComponent,
+     AddmissionComponent    
   ],
   imports: [
     BrowserModule,
@@ -68,9 +72,12 @@ import { ClientHeaderComponent } from './client/client-header/client-header.comp
     MDBBootstrapModule,
     Ng2SearchPipeModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
-    NgxPaginationModule
-  ],
+    NgxPaginationModule,
+    NgMultiSelectDropDownModule.forRoot()
+
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

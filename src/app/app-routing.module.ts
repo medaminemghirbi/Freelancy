@@ -6,6 +6,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { MissionsComponent } from './admin/missions/missions.component';
 import { ProfilAdminComponent } from './admin/profil-admin/profil-admin.component';
 import { SkillsComponent } from './admin/skills/skills.component';
+import { AddmissionComponent } from './client/addmission/addmission.component';
 import { DashbordClientComponent } from './client/dashbord-client/dashbord-client.component';
 import { AboutComponent } from './user/about/about.component';
 import { CategoriesDetailComponent } from './user/categories-detail/categories-detail.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path:'missions',component:MissionsComponent},
   {path:'allskills',component:SkillsComponent},
   {path:'dashbord-client',component:DashbordClientComponent},
+  {path:'addmission',component:AddmissionComponent}
 
 
 

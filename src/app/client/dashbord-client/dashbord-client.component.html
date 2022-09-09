@@ -13,33 +13,12 @@
     </div>
     <nav class="nav flex-column">
         <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
-        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>postulated missions </a>  
-        <a class="nav-link  nav-nav-dropdown-toggle" data-toggle="collapse" data-target="#settingscolaps"
-        aria-expanded="true" aria-controls="collapseTwo"><i class="fas fa-briefcase"></i>  My Mission List  </a>  
-        <div id="settingscolaps" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-black py-2 collapse-inner rounded">              
-                <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> All Missions </a>              
-                <a routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> Active Mission </a>   
-                <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Mission </a>   
-            </div>
-        </div>
-
- 
-        <a class="nav-link  dashboard-nav-dropdown-toggle" data-toggle="collapse" data-target="#profilcolapse"
-        aria-expanded="true" aria-controls="collapseTwo"><i class="fas fa-cogs"></i>  Settings  </a>  
-        <div id="profilcolapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-black py-2 collapse-inner rounded">              
-                <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> Profil </a>              
-         
-            </div>
-        </div>
-        
-        <a  routerLink="/addmission" class="nav-link  "><i class="fas fa-tachometer-alt"></i> Post New Mission </a>
-       
-
-
-        <div class="nav-item-divider"></div>
-        <a (click)="logout()" class="nav-link "><i class="fas fa-sign-out-alt"></i> Logout </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
     </nav>
   </div>
 </div>

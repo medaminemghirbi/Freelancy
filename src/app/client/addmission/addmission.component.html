@@ -1,0 +1,148 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Client</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a  routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Post New Mission for Client
+        </div>
+      </div>
+    </section>
+  </div>
+    <div class="container">
+
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+          <div class="d-flex align-items-center">
+            <div>
+              <h2>Post A New Mission</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-lg-12">
+          <form class="p-4 p-md-5 border rounded" [formGroup]="addmissionn" #f="ngForm" (ngSubmit)="addmission (f); f.reset()">
+            <h3 class="text-black mb-5 border-bottom pb-2">Mission Details</h3>
+            
+        
+
+
+            <div class="form-group">
+              <label for="job-title">Mission Title</label>
+              <input type="text" class="form-control" id="job-title"formControlName="title" placeholder="Exp: Product Designer">
+            </div>
+            <div class="form-group">
+              <label for="job-location">Mission Description</label>
+              <textarea type="text" name="description" class="form-control" formControlName="description" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="job-location">Duration(Months)</label>
+                <input class="form-control" formControlName="duration" type="number" oninput="validity.valid||(value='');" min="0" max="12" name="duration">
+            </div>
+            <div class="form-group">
+                <label for="job-title">Start Date</label>
+                <input type="date" name="beginingDate" class="form-control" formControlName="beginingDate" required>
+              </div>
+              <div class="form-group">
+                <label for="job-title">Mission Budget</label>
+                <input type="number" name="Budget" class="form-control" formControlName="budget"
+                oninput="validity.valid||(value='');" min="0" max="1000000000" placeholder="(TND)" required>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput1">Mission Skills required </label>
+  
+                <div style="width:50%">
+                  <ng-multiselect-dropdown
+             
+                  formControlName="language_id" 
+                      [settings]="dropdownSettings"
+                      [data]="languagedata">
+                      <ng-option *ngFor="let l of languages" [value]="l.id">{{l.name}}</ng-option>
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+ 
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Category </label>
+              <select class="form-control" id="exampleFormControlSelect1"
+           
+              formControlName="category_id" name="id">
+              <option  value selected disabled hidden>no Category selected</option>
+                <option *ngFor=" let item of dataArray " [value]="item.id"> {{item.name}} </option>
+              </select>
+            </div>
+
+           <!--    <div class="form-group">
+              <label for="exampleFormControlInput2">Skills </label>
+              <ng-select class="form-control" appendTo="body" [multiple]="true" appendTo="body"
+                id="exampleFormControlSelect2" formControlName="language_id" [(ngModel)]="selectedDefaultLanguage">
+                <ng-option *ngFor="let l of languages" [value]="l.id">{{l.name}}</ng-option>
+              </ng-select>
+  
+            </div><br>
+         
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Mission Skills required </label>
+
+              <div style="width:50%">
+                <ng-multiselect-dropdown
+           
+                formControlName="language_id" 
+                    [settings]="dropdownSettings"
+                    [data]="languagedata">
+                    <ng-option *ngFor="let l of languages" [value]="l.id">{{l.name}}</ng-option>
+                </ng-multiselect-dropdown>
+              </div>
+            </div>-->
+            <div class="row align-items-center mb-5">
+        
+              <div class="col-lg-4 ml-auto">
+                <div class="row">
+                  <div class="col-6">
+                  </div>
+                  <div class="col-6">
+                    <br>
+                    <div class="alert alert-danger" *ngIf="messageError">{{messageError}}</div>
+                    <button  class="btn btn-block btn-primary btn-md" type="submit">Save Mission</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+
+       
+      </div>
+
+    </div>
+
+</section>
