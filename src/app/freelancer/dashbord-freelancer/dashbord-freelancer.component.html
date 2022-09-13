@@ -1,0 +1,245 @@
+<app-freelancer-header></app-freelancer-header>
+
+<div class="sidebar">
+    <div class="sidebar-content text-dark">
+      <div class="account">
+        <div class="image img-cir img-80">
+          <img [src]="freelancerdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+  
+        </div><br>
+        <h6 class="name">{{freelancerdata.lastname}} {{freelancerdata.firstname}}</h6>
+        <h4 class="name">{{freelancerdata.role}}</h4>
+        <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+      
+      </div>
+      <nav class="nav flex-column">
+       
+        <a routerLink="/dashboard-freelancer" class="nav-link"><i
+            class="fas fa-tachometer-alt"></i>
+        dashboard Freelancer</a>
+
+    <a routerLink="/postulated-missions-freelancer" class="nav-link">
+        <i class="fas fa-envelope"></i>Requested missions </a>
+
+        <div id="accordion">
+        <a  class="nav-link nav-link-dropdown-toggle"
+        data-toggle="collapse" data-target="#collapseOne" 
+        aria-expanded="true"
+         aria-controls="collapseOne"><i class="fas fa-briefcase"></i>
+         My Mission List   <i class="fa fa-caret-down"></i> </a>
+    <div id="collapseOne" class="collapse " 
+    aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="bg-black py-2 collapse-inner rounded">
+
+            <a routerLink="/active-missions-freelancer"class="nav-link"><i
+                    class="fas fa-chart-line"></i> To Do Mission </a>
+            <a routerLink="/ended-missions-freelancer"class="nav-link"><i
+                    class="fas fa-clipboard-list"></i> Ended Mission </a>
+        </div>
+    </div>
+</div>
+<div id="accordion">
+    <a  class="nav-link nav-link-dropdown-toggle"
+    data-toggle="collapse" data-target="#collapsetwo" 
+    aria-expanded="true"
+     aria-controls="collapsetwo"><i class="fas fa-briefcase"></i>
+     Settings   <i class="fa fa-caret-down"></i> </a>
+<div id="collapsetwo" class="collapse " 
+aria-labelledby="headingOne" data-parent="#accordion">
+    <div class="bg-black py-2 collapse-inner rounded">
+        <a routerLink="/profil-freelancer" class="nav-link"><i class="fas fa-user"></i>
+            Profil
+            Details </a>
+        <a routerLink="/education" class="nav-link"><i class="fas fa-school"></i>
+            Education
+        </a>
+        <a routerLink="/experience" class="nav-link"><i class="fas fa-building"></i>
+            Experiance </a>
+        <a routerLink="/skills" class="nav-link"><i class="fas fa-building"></i>
+            Skills
+        </a>
+    </div>
+</div>
+</div>
+
+
+    <a [routerLink]="['/generatecv',freelancerdata.id]" class="nav-link"><i
+            class="fas fa-id-card"></i> Generate My CV </a>
+
+    <a routerLink="/favoris" class="nav-link"><i class="fas fa-heart"></i> My Favoris List
+    </a>
+    <a (click)="logout()"class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+
+      </nav>
+    </div>
+  </div>
+  <section class="content"><br>
+    <div class="container-fluid py-4">
+      <section class="breadcrumb">
+        <div class="row">
+          <div class="col">
+            You are Here Freelancer / Dashboard Freelancer
+          </div>
+        </div>
+      </section>
+  
+      <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                routerLink="/postulated-missions-freelancer">
+                                Requests </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                             >
+                            {{dataArray.requests}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Skills  
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{dataArray.language}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            
+                            <i class="fas fa-gem fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Educations
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div
+                                        class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        {{dataArray.education}} </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-school fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Experiences </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{dataArray.experience}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                               favorite 
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{dataArray.favoris}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            
+                            <i class="fas fa-heart fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Active Missions </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{dataArray.activemissions}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Ended Missions </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{dataArray.endedmissions}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
+    </div>
+    </div>
+  </section>
+  

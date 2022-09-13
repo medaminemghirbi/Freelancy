@@ -1,0 +1,441 @@
+<app-freelancer-header></app-freelancer-header>
+
+<div class="sidebar">
+    <div class="sidebar-content text-dark">
+      <div class="account">
+        <div class="image img-cir img-80">
+          <img [src]="freelancerdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+  
+        </div><br>
+        <h6 class="name">{{freelancerdata.lastname}} {{freelancerdata.firstname}}</h6>
+        <h4 class="name">{{freelancerdata.role}}</h4>
+        <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+      
+      </div>
+      <nav class="nav flex-column">
+       
+        <a routerLink="/dashboard-freelancer" class="nav-link"><i
+            class="fas fa-tachometer-alt"></i>
+        dashboard Freelancer</a>
+
+    <a routerLink="/postulated-missions-freelancer" class="nav-link">
+        <i class="fas fa-envelope"></i>Requested missions </a>
+
+        <div id="accordion">
+        <a  class="nav-link nav-link-dropdown-toggle"
+        data-toggle="collapse" data-target="#collapseOne" 
+        aria-expanded="true"
+         aria-controls="collapseOne"><i class="fas fa-briefcase"></i>
+         My Mission List   <i class="fa fa-caret-down"></i> </a>
+    <div id="collapseOne" class="collapse " 
+    aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="bg-black py-2 collapse-inner rounded">
+
+            <a routerLink="/active-missions-freelancer"class="nav-link"><i
+                    class="fas fa-chart-line"></i> To Do Mission </a>
+            <a routerLink="/ended-missions-freelancer"class="nav-link"><i
+                    class="fas fa-clipboard-list"></i> Ended Mission </a>
+        </div>
+    </div>
+</div>
+<div id="accordion">
+    <a  class="nav-link nav-link-dropdown-toggle"
+    data-toggle="collapse" data-target="#collapsetwo" 
+    aria-expanded="true"
+     aria-controls="collapsetwo"><i class="fas fa-briefcase"></i>
+     Settings   <i class="fa fa-caret-down"></i> </a>
+<div id="collapsetwo" class="collapse " 
+aria-labelledby="headingOne" data-parent="#accordion">
+    <div class="bg-black py-2 collapse-inner rounded">
+        <a routerLink="/profil-freelancer" class="nav-link"><i class="fas fa-user"></i>
+            Profil
+            Details </a>
+        <a routerLink="/education" class="nav-link"><i class="fas fa-school"></i>
+            Education
+        </a>
+        <a routerLink="/experience" class="nav-link"><i class="fas fa-building"></i>
+            Experiance </a>
+        <a routerLink="/skills" class="nav-link"><i class="fas fa-building"></i>
+            Skills
+        </a>
+    </div>
+</div>
+</div>
+
+
+    <a [routerLink]="['/generatecv',freelancerdata.id]" class="nav-link"><i
+            class="fas fa-id-card"></i> Generate My CV </a>
+
+    <a routerLink="/favoris" class="nav-link"><i class="fas fa-heart"></i> My Favoris List
+    </a>
+    <a (click)="logout()"class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+
+      </nav>
+    </div>
+  </div>
+  <section class="content"><br>
+    <div style="margin-left:88%"><br>
+        <button (click)="getPdf()" class="btn btn-outline-primary" *ngIf="logged_in && role==='freelancer' ">
+            Download My CV </button>
+      </div> <br>
+      <div style="margin-left:20%">
+        <div class="container">
+      
+            <div class="main-body" id="htmlData">
+                <div class="row">
+      
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center"
+                                    *ngFor="let item of dataArray">
+                                    <img [src]="item.user_image_url" class="rounded-circle p-1 bg-primary"
+                                        width="110">
+      
+      
+                                    <div class="title">
+                                        <h6>{{item.firstname}} {{item.lastname}}</h6>
+                                        <h6 class="title" *ngIf="item.job && item.job !== 'null' ">
+                                            {{item.job}}
+                                        </h6>
+                                        <h6 class="title" *ngIf="item.earning && item.earning !== 'null' ">
+                                            {{item.earning}}
+                                            DT / jour</h6>
+      
+                                        <h6 class="title">
+                                            {{item.reviews_count}} <i class="fas fa-star"
+                                                style=" color: rgb(10, 10, 94);"></i> </h6>
+      
+      
+      
+                                    </div>
+                                    <hr class="my-4" *ngIf="item.linkedin ">
+                                </div>
+      
+                                <ul class="list-group list-group-flush" *ngFor="let item of dataArray">
+                                    <li *ngIf="item.linkedin && item.linkedin !== 'null' "
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-globe me-2 icon-inline">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                                <path
+                                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                                </path>
+                                            </svg>
+                                            Linkedin </h6>
+                                        <span class="title"><a href="{{item.linkedin}}">   Go Link </a> </span>
+                                    </li>
+                                    <li *ngIf="item.github && item.github!== 'null' "
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-github me-2 icon-inline">
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg>
+                                            Github</h6>
+                                        <span class="title">  
+                                        <a href="{{item.github}}">   Go Link </a>
+                                        </span>
+                                    </li>
+      
+                                    <li *ngIf="item.instagram && item.instagram!== 'null'"
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-instagram me-2 icon-inline text-danger">
+                                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                            </svg>Instagram</h6>
+                                        <span class="title"><a href="{{item.instagram}}">   Go Link </a> </span>
+                                    </li>
+                                    <li *ngIf="item.facebook && item.facebook!== 'null'"
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-facebook me-2 icon-inline text-primary">
+                                                <path
+                                                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                                                </path>
+                                            </svg>Facebook</h6>
+                                        <span class="title"><a href="{{item.facebook}}">   Go Link </a> </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+      
+                    <div class="col-lg-8">
+                        <div class="card" *ngFor="let item of dataArray">
+                            <div class="card-body">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-3 title">
+                                                <h6>{{item.firstname}} {{item.lastname}} </h6>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3 title">
+                                                <h6>Email</h6>
+                                            </div>
+                                            <div class="col-sm-7 title">
+                                                <h6> {{item.email}} </h6>
+                                            </div>
+                                        </div>
+                                        <hr *ngIf="item.phone && item.phone!=='null' ">
+                                        <div class="row" *ngIf="item.phone && item.phone!=='null' ">
+                                            <div class="col-sm-3 title">
+                                                <h6>Phone</h6>
+                                            </div>
+                                            <div class="col-sm-3 title">
+                                                <h6>(+216) {{item.phone}} </h6>
+                                            </div>
+                                        </div>
+                                        <hr *ngIf="item.description && item.description!=='null'">
+                                        <div class="row" *ngIf="item.description && item.description!=='null'">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Description</h6>
+                                            </div>
+                                            <div class="col-sm-9 title">
+                                                <h6> {{item.description}} </h6>
+                                            </div>
+                                        </div>
+                                        <hr *ngIf="item.adresse && item.adresse !== 'null' ">
+                                        <div class="row" *ngIf="item.adresse && item.adresse !== 'null' ">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 title">
+                                                <h6> {{item.adresse}} </h6>
+                                            </div>
+                                        </div>
+      
+      
+                                    </div>
+                                </div>
+      
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card" *ngFor="let data of dataArrayy">
+                                    <div class="card-body">
+                                        <h5 class="d-flex align-items-center mb-3">Education Status</h5>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img alt="" style="width:150px;" title=""
+                                                    src="https://icon-library.com/images/school-icon/school-icon-11.jpg"
+                                                    data-original-title="Usuario">
+      
+                                            </div>
+                                            <div class="col-md-6">
+      
+                                                <div class="table-responsive">
+                                                    <table class="table table-user-information">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>
+                                                                        <span
+                                                                            class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                                        School/University
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="text-primary">
+                                                                    {{ data.ecole }}
+      
+                                                                </td>
+                                                            </tr>
+      
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>
+                                                                        <span
+                                                                            class="glyphicon glyphicon-cloud text-primary"></span>
+                                                                        Start Date </strong>
+                                                                </td>
+                                                                <td class="text-primary">
+                                                                    {{data.dateDebut}}
+                                                                </td>
+                                                            </tr>
+      
+      
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>
+                                                                        <span
+                                                                            class="glyphicon glyphicon-envelope text-primary"></span>
+                                                                        Graduation Date </strong>
+                                                                </td>
+                                                                <td class="text-primary">
+                                                                    {{data.dateFin }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+      
+                                                            </tr>
+      
+      
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+      
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card" *ngFor="let data of dataArrayyy">
+                                    <div class="card-body">
+                                        <h5 class="d-flex align-items-center mb-3">Experience Status</h5>
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <img alt="" height="150" style="width:150px;" title=""
+                                                        src="https://g.foolcdn.com/editorial/images/466511/man-working-at-a-computer_gettyimages-650066898.jpg"
+                                                        data-original-title="Usuario">
+      
+                                                </div> &nbsp;&nbsp;
+                                                <div class="col-md-6">
+      
+                                                    <div class="table-responsive">
+                                                        <table class="table table-user-information">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <span
+                                                                                class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                                            entreprise
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td class="text-primary">
+                                                                        {{ data.entreprise }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <span
+                                                                                class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                                            JobType
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td class="text-primary">
+                                                                        {{ data.jobType }}
+                                                                    </td>
+                                                                </tr>
+      
+      
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <span
+                                                                                class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                                            Description
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td class="text-primary">
+                                                                        {{ data.description }}
+                                                                    </td>
+                                                                </tr>
+      
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <span
+                                                                                class="glyphicon glyphicon-cloud text-primary"></span>
+                                                                            Start Date </strong>
+                                                                    </td>
+                                                                    <td class="text-primary">
+                                                                        {{data.dateDebut}}
+                                                                    </td>
+                                                                </tr>
+      
+      
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <span
+                                                                                class="glyphicon glyphicon-envelope text-primary"></span>
+                                                                            End Date </strong>
+                                                                    </td>
+                                                                    <td class="text-primary">
+                                                                        {{data.dateFin }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+      
+                                                                </tr>
+      
+      
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="d-flex align-items-center mb-3">Freelancer Languages </h5>
+                                        <div class="row">
+      
+                                            <div class="col-md-6" *ngFor="let data of dataArrayyyy">
+                                                <div>
+      
+                                                    <div *ngIf=" data.name && data.name !=='null' ">
+                                                        <p> {{data.name}} </p>
+      
+                                                        <div class="progress" style="height:30px">
+                                                            <div ngClass="progress-bar progress-bar-striped bg-{{data.color}}"
+                                                                [ngStyle]="{width: data.languagerate+'%'}"
+                                                                role="progressbar" style="width: 25%;"
+                                                                aria-valuenow="25" aria-valuemin="0"
+                                                                aria-valuemax="100"> {{data.languagerate}}%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+      
+      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+      
+      
+      </div>
+  </section>
+  

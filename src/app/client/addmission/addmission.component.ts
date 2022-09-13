@@ -30,7 +30,6 @@ export class AddmissionComponent implements OnInit {
   dropdownSettings:IDropdownSettings={};
   constructor(private usersService:UsersService,private route:Router) { 
     this.clientdata = JSON.parse( sessionStorage.getItem('clientdata') !);
-    console.log(this.clientdata.firstname)  
 
     this.addmissionn = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -50,11 +49,10 @@ export class AddmissionComponent implements OnInit {
       textField: 'name',
     };
     this.usersService.getAllcategories().subscribe(data=>{
-      console.log(data)   
+   
       this.dataArray=data,
-      console.log(this.dataArray),
       (err:HttpErrorResponse)=>{
-        console.log(err)
+       
       this.messageErr="We dont't found this category in our database"}
     }) 
               
@@ -64,13 +62,13 @@ export class AddmissionComponent implements OnInit {
     
     language.forEach((l: { [x: string]: any; }) => this.languages.push({ "id": l["id"], "name": l["name"] }));
   this.languagedata=language
-  console.log()
+
   this.languagedata.forEach((element: any) => {
-    console.log(element)
+  
 
   });
   (err:HttpErrorResponse)=>{
-  console.log(err)
+
   this.messageErr="We dont't found this langugae in our database"}
   }) 
   }
@@ -85,15 +83,14 @@ export class AddmissionComponent implements OnInit {
       formData.append('category_id',this.addmissionn.value.category_id);
       formData.append('client_id',this.clientdata.id);
       formData.append('language_id',this.addmissionn.value.language_id.map((v:any) => v.id));  
-      debugger 
+ 
     let data=f.value   
-    debugger
-    console.log(data)
+
+
     this.usersService.addMission(formData).subscribe( ()=>{
        this.date = moment(Date.now()).format("YYYY-MM-DD"); 
       if (data.beginingDate > this.date ) {
-        console.log(this.date)
-        console.log(data.beginingDate)
+
         this.submitted = true ;  
         Swal.fire({
           icon: 'success',
@@ -119,13 +116,11 @@ export class AddmissionComponent implements OnInit {
       }
    
     },(err:HttpErrorResponse)=>{
-      console.log(data.beginingDate)
-        console.log(this.date)
+
 
       this.messageError =  "champs required or not valid"
       this.messageErr=err.error
-      console.log(err.error)
-       console.log(err.status)
+ 
        Swal.fire({
         icon: 'error',
         title: 'Oops...',

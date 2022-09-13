@@ -1,0 +1,120 @@
+<body>
+  <div class="site-wrap">
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+           <div class="site-mobile-menu-close mt-3">
+              <span class="icon-close2 js-menu-toggle"></span>
+           </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+     <app-navbar-user></app-navbar-user>
+     <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+        <div class="container">
+        </div>
+     </section>
+     <section class="site-section" id="next-section">
+        <div class="container">
+           <section id="sidebar">
+              <p> Home | <b>All Missions</b></p>
+              <div class="border-bottom pb-2 ml-2">
+                 <h4 id="burgundy">Filters</h4>
+              </div>
+              <div class="py-2 border-bottom ml-3">
+                 <h6 class="font-weight-bold">Categories</h6>
+                 <div id="orange"><span class="fa fa-minus"></span></div>
+                 <form >
+                    <input (click)="getallmiss()" type="radio" value="0" name="1"  id="exampleCheck1" > &nbsp;
+                    <label for="artisan">all categories  </label> 
+                    <div class="form-group" *ngFor="let data of datacate ">  
+                       <input (click)="missionbycategory (data.id)" type="radio" value="1" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">{{data.name}}</label> 
+                    </div>
+                 </form>
+              </div>
+              <div class="py-2 border-bottom ml-3">
+                 <h6 class="font-weight-bold"> Find by Budget  </h6>
+                 <div id="orange"><span class="fa fa-minus"></span></div>
+                 <form >
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (100)" type="radio" value="100" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 100 </label>      
+                    </div>
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (500)" type="radio" value="500" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 500 </label>      
+                    </div>
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (1000)" type="radio" value="1000" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 1000 </label>      
+                    </div>
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (3000)" type="radio" value="3000" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 3000 </label>      
+                    </div>
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (5000)" type="radio" value="5000" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 5000 </label>      
+                    </div>
+                    <div class="form-group"   >  
+                       <input (click)="missionbybudget (10000)" type="radio" value="10000" name="1" id="exampleCheck1" >  &nbsp;
+                       <label for="artisan">moins de 10000 </label>      
+                    </div>
+                 </form>
+              </div>
+              <form [formGroup]="languagefiltre">
+                 <div class="form-group">
+                    <label for="exampleFormControlInput2">Find By Skills  </label>
+                    <div id="orange"><span class="fa fa-minus"></span></div>
+                    <ng-select 
+                    class="form-control"
+                    appendTo="body"
+                    [multiple]="true" 
+                    appendTo="body" 
+                    id="exampleFormControlSelect2"
+                    formControlName="language_id"
+                    [(ngModel)]="selectedDefaultLanguage"
+                    (change)="missionbylanguages()" >
+                    <ng-option *ngFor="let l of languages" [value]="l.id">{{l.name}}</ng-option>
+                    </ng-select>
+                 </div>
+              </form>
+              <br>
+           </section>
+           <span id="Categorie"></span>
+           <div class="container" >
+              <div class="row">
+                 <div class="card col-md-12 p-3" *ngFor="let produit of dataArray | filter:searchedKeyword ;">
+                    <div *ngIf="produit !=null" class="row ">
+                       <div class="col-md-12" >
+                          <div class="card-block">
+                             <a style="text-decoration: none;" [routerLink]="['/detail-mission',produit.id]">
+                                <h6 class="card-title">{{produit.title}}</h6>
+                             </a>
+                             <div style="text-align: right;">
+                                <a class="btn btn-danger" *ngIf="produit.freelancer_id"> Offre expired
+                                </a>
+                             </div>
+                             <i class="fas fa-clock">&nbsp; {{produit.beginingDate}}</i>
+                             &nbsp;&nbsp;  <i class="fas fa-money" ></i>{{produit.budget}} DT
+                             &nbsp;
+                             &nbsp;&nbsp; <i class="fas fa-book">  {{produit.requests_count}} Proposition</i> 
+                             <p class="card-text text-justify">{{produit.description}} .<br></p>
+                             Category:  <a  class="btn btn-primary">{{produit.category.name}}</a><br><br>
+                             skills:  <a style="display: inline;" class="btn btn-primary" *ngFor="let x of produit.languages">{{x.name}} &nbsp;</a>
+                             <br><br>
+                          </div>
+                          <div class="form-group">
+                             <button *ngIf="role!=='client' && role!=='admin' " class="btn btn-danger"  type="submit" 
+                             (click)="addfavoris(produit.id)" > <i class="fas fa-heart"></i>  Favoris  </button> &nbsp;
+                             <button *ngIf="role!=='client' && role!=='admin' " class="btn btn-danger"  type="submit" (click)="addrequest(produit.id)" > Postuler  </button>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </section>
+  </div>
+</body>

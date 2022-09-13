@@ -1,0 +1,163 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Client</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a  routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Mission List for Client
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">All Requests ({{counter}})</h6>
+  </div>
+  <form class="card-header py-3">
+    <div class="input-group">
+      <input type="text" name="name" class="form-control" [(ngModel)]="searchedKeyword"
+        placeholder="Search for...">
+
+    </div>
+  </form><br>
+  <div class="table-responsive">
+    <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+      <thead>
+        <tr>
+          <th scope="col">Status &nbsp;<i class="fa fa-sort"> </i> </th>
+          <th scope="col"> Mission_id </th>
+          <th scope="col"> Title Mission </th>
+          <th scope="col"> Email Freelancer </th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+       
+        <tbody>
+          <tr *ngFor="let item of dataArray.request  |paginate: { itemsPerPage: 3, currentPage: p } | filter:searchedKeyword ; index as i"
+          >
+
+            <td *ngIf="item.status==='accepted' "> <button class="btn btn-success">{{item.status}}</button>
+            </td>
+            <td *ngIf="item.status==='encours' "><button class="btn btn-warning">{{item.status}}</button> </td>
+            <td *ngIf="item.status==='refus' "><button class="btn btn-danger">{{item.status}}</button> </td>
+            <td>{{item.mission.id}}</td>
+            <td>{{item.mission.title}}</td>
+
+            <td> <a [routerLink]="['/detail-freelancer',item.freelancer_id]"> {{item.freelancer.email }} </a>
+            </td>
+
+            <td>
+             
+                        <button 
+                (click)="getdata(item.status,item.mission_id,item.freelancer_id, item.id)"
+                class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"><i
+                  class="fa fa-edit" aria-hidden="true"></i> Update Request </button>
+</td><td>
+              <button
+                (click)="delete(item.id , i)" *ngIf="item.status==='encours' || item.status==='refus'   " class="btn btn-outline-danger"><i class="fa fa-trash"
+                  aria-hidden="true"></i> Delete </button>
+                  <button readonly style="cursor: not-allowed;" disabled 
+                  (click)="delete(item.id , i)" *ngIf="item.status==='accepted' "  class="btn btn-outline-danger"><i class="fa fa-trash"
+                    aria-hidden="true"></i> Delete </button>
+            </td>
+
+
+          </tr>
+          <tr *ngIf="dataArray.length==0">
+            <td colspan="7"style="text-align:center;">no data found</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align:right;">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Update </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form update start here -->
+                              <form [formGroup]="update" #f="ngForm" (ngSubmit)="updaterequest (f) ">
+                                <!-- firstName validation start here -->
+                                <div class="form-group">
+                                  <label for="exampleFormControlInput1">Status </label>
+                                  <select class="form-control" id="exampleFormControlSelect1" *ngIf="test===true && y===true" [(ngModel)]="dataMission.status" required
+                                    formControlName="status">
+                                    <option value="encours">En Cours</option>
+                                    <option value="accepted">accepted</option>
+                                    <option value="refus">refus</option>
+                                  </select>
+                                  <select class="form-control" id="exampleFormControlSelect1" *ngIf="test===false && y===false" [(ngModel)]="dataMission.status" required
+                                  formControlName="status">
+                                  <option value="encours">En Cours</option>
+                                  <option value="refus">refus</option>
+                      
+                                </select>
+                      
+                                </div>
+                      
+                      
+                      
+                                <!--  <div class="form-group">
+                                                  
+                                                        <label for="exampleFormControlInput1">Status </label>
+                                                        <input type="text" class="form-control" placeholder="Status" [(ngModel)]="dataMission.status" required formControlName="status"  minlength="2" maxlength="20">
+                                                      </div>-->
+                      
+                                <div class="form-group">
+                                  <label for="exampleFormControlInput1">Freelancer </label>
+                                  <input type="text" class="form-control" placeholder="Freelancer" [(ngModel)]="dataMission.freelancer_id"
+                                    required formControlName="freelancer_id" readonly style="cursor: not-allowed;" minlength="2"
+                                    maxlength="20">
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleFormControlInput1">Mission </label>
+                                  <input type="text" class="form-control" placeholder="Mission" [(ngModel)]="dataMission.mission_id"
+                                    required formControlName="mission_id" readonly style="cursor: not-allowed;" minlength="2"
+                                    maxlength="20">
+                                </div>
+                      
+                                <div class="alert alert-success" *ngIf="messageSuccess">
+                                  {{messageSuccess}}
+                                </div>
+                      
+                                <button class="btn btn-primary">Update Request</button>
+                              </form>
+                      
+                      
+                      
+                              <!-- form update end here -->
+                            </div>
+                      
+                          </div>
+                        </div>
+                      </div> 
+</section>

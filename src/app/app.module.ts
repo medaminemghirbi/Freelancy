@@ -34,6 +34,19 @@ import { ClientHeaderComponent } from './client/client-header/client-header.comp
 import { AddmissionComponent } from './client/addmission/addmission.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ClientMissionsComponent } from './client/client-missions/client-missions.component';
+import { MissionRequestsClientComponent } from './client/mission-requests-client/mission-requests-client.component';
+import { EditProfilClientComponent } from './client/edit-profil-client/edit-profil-client.component';
+import { ToDoMissionsComponent } from './client/to-do-missions/to-do-missions.component';
+import { EndedMissionsClientComponent } from './client/ended-missions-client/ended-missions-client.component';
+import { DashbordFreelancerComponent } from './freelancer/dashbord-freelancer/dashbord-freelancer.component';
+import { FreelancerHeaderComponent } from './freelancer/freelancer-header/freelancer-header.component';
+import { PostulatedMissionFreelancerComponent } from './freelancer/postulated-mission-freelancer/postulated-mission-freelancer.component';
+import { ActiveMissionsFreelancerComponent } from './freelancer/active-missions-freelancer/active-missions-freelancer.component';
+import { EndedMissionsFreelancerComponent } from './freelancer/ended-missions-freelancer/ended-missions-freelancer.component';
+import { GeneratecontratfreelancerComponent } from './freelancer/generatecontratfreelancer/generatecontratfreelancer.component';
+import { GeneratecvComponent } from './freelancer/generatecv/generatecv.component';
+import { MissionComponent } from './user/mission/mission.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +75,21 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
      SkillsComponent,
      DashbordClientComponent,
      ClientHeaderComponent,
-     AddmissionComponent    
-  ],
+     AddmissionComponent,
+     ClientMissionsComponent,
+     MissionRequestsClientComponent,
+     EditProfilClientComponent,
+     ToDoMissionsComponent,
+     EndedMissionsClientComponent,
+     DashbordFreelancerComponent,
+     FreelancerHeaderComponent,
+     PostulatedMissionFreelancerComponent,
+     ActiveMissionsFreelancerComponent,
+     EndedMissionsFreelancerComponent,
+     GeneratecontratfreelancerComponent,
+     GeneratecvComponent,
+     MissionComponent,
+       ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,183 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Client</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a  routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Mission List for Client
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">My All Missions ({{counter}})</h6>
+  </div>
+  <form class="card-header py-3">
+    <div class="input-group">
+      <input type="text" name="name" class="form-control" [(ngModel)]="searchedKeyword"
+        placeholder="Search for...">
+
+    </div>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+        <thead>
+
+            <tr>
+               
+                <th>Mission title</th>
+                <th>description</th>
+                <th>duration</th>
+                <th>beginingDate</th>
+                <th>budget</th>
+                <th>category</th>
+                <th colspan="2">Action</th>
+
+            </tr>
+        </thead>
+       
+        <tbody>
+          
+            <tr
+            *ngFor="let item of dataArray | paginate: { itemsPerPage: 4, currentPage: p } ; index as i">
+            <td>{{item.title}}</td>
+            <!--   <td>{{item.languages.name}}</td> -->
+            <td>{{item.description}}</td>
+            <td>{{item.duration}} Months</td>
+            <td>{{item.beginingDate}}</td>
+            <td>{{item.budget}} TND</td>
+            <td>{{item.category.name}}</td>
+ 
+            <td>
+                <button
+                    (click)="getdata(item.title,item.description,item.duration, item.beginingDate,item.budget,item.category_id,item.language_id ,item.id)"
+                    data-toggle="modal" data-target=".bd-example-modal-lg" class="update">
+                    Update
+                </button>
+            </td>
+            <td>
+                <button (click)="delete(item.id , i)" class="delete">Delete</button>
+            </td>
+        </tr>
+            
+        </tbody>
+    </table>
+</div>
+<div style="text-align:right;">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Update this mission</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- form update start here -->
+      <form [formGroup]="addmissionn" #f="ngForm" (ngSubmit)="updatemission(f)">
+        <!-- firstName validation start here -->
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Mission Title</label>
+          <input type="text" class="form-control" placeholder="title"
+            [(ngModel)]="dataMission.title" required formControlName="title" ngModel
+            minlength="2" />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Mission Duration </label>
+          <input type="number" class="form-control" placeholder="duration"
+            [(ngModel)]="dataMission.duration" formControlName="duration" required
+            minlength="2" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1"> Mission Start Date </label>
+          <input type="date" class="form-control" placeholder="beginingDate"
+            [(ngModel)]="dataMission.beginingDate" required name="beginingDate"
+            formControlName="beginingDate" minlength="2" maxlength="20" ngModel />
+        </div>
+
+        <div class="alert alert-danger" *ngIf="messageError">{{messageError}}</div>
+
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Mission Budget </label>
+          <input type="text" class="form-control" placeholder="budget"
+            [(ngModel)]="dataMission.budget" required name="budget" formControlName="budget"
+            minlength="2" maxlength="20" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Mission Category </label>
+          <select [(ngModel)]="dataMission.category_id" class="form-control"
+            formControlName="category_id">
+            <option *ngFor=" let item of dataArrayy " [value]="item.id"> {{item.name}}
+            </option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Mission Skills required To Update</label>
+
+          <div style="width:50%">
+            <ng-multiselect-dropdown
+       
+            formControlName="language_id" 
+                [settings]="dropdownSettings"
+                [(ngModel)]="selectedItems"
+                [data]="languagedata">
+                <ng-option *ngFor="let l of languages" [value]="l.id">{{l.name}}</ng-option>
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Mission Description</label>
+            <textarea class="form-control" placeholder="description"
+              [(ngModel)]="dataMission.description" required name="description"
+              formControlName="description" id="exampleFormControlTextarea1"
+              rows="3"></textarea>
+          </div>
+
+        </div>
+
+        <!-- lastName validation end here -->
+
+        <div class="alert alert-success" *ngIf="messageSuccess">
+          {{messageSuccess}}
+        </div>
+
+        <button class="btn btn-primary">Update Now</button>
+      </form>
+
+      <!-- form update end here -->
+    </div>
+  </div>
+</div>
+</div>
+</section>

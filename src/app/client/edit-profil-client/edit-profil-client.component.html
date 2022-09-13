@@ -1,0 +1,155 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h6 class="name">{{clientdata.lastname}} {{clientdata.firstname}}</h6>
+      <h4 class="name">{{clientdata.role}}</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Edit Profil  Client
+        </div>
+      </div>
+    </section>
+
+         <div class="container">
+          <div class="row gutters">
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+              <div class="card-body">
+                  <div class="account-settings">
+                      <form [formGroup]="imageupdate" #f="ngForm" (ngSubmit)="updateimage(f)">
+                          <div class="user-profile">
+                              <div class="user-avatar">
+                                  <img height="180" [src]="clientdata.user_image_url" alt="" class="card-img-top" />
+                              </div>
+                              <h5 class="user-name">{{ clientdata.firstname }} {{ clientdata.lastname }}</h5>
+                              <h6 class="user-email">{{ clientdata.email }}</h6>
+                              <br />
+                              <input type="file" (change)="fileChange($event)" [defaultValue]="" class="form-control" formControlName="avatar" rows="3" width="110" required />
+                          </div><br>
+                          <button type="submit" class="btn btn-primary px-4" style="background-color: rgb(38, 8, 158);">Update Image</button>
+                      </form>
+                      <div  *ngIf="clientdata.descirption!=null"   class="about">
+                          <h5>About</h5>
+                          <p>{{ clientdata.description }} .</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+          <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+              <div class="card-body">
+                  <form [formGroup]="upadate" #f="ngForm" (ngSubmit)="updatenewuser(f)">
+                  <div class="row gutters">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <h6 class="mb-2 text-primary">Personal Details</h6>
+                         
+                      </div><br>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="fullName">First Name</label>
+                              <input type="text" class="form-control" formControlName="firstname"  placeholder="firstname" [(ngModel)]="clientdata.firstname" required  ngModel >
+                          </div><br>
+                          <div class="form-group">
+                              <label for="fullName">Last Name</label>
+                              <input type="text" class="form-control" formControlName="lastname"  placeholder="firstname" [(ngModel)]="clientdata.lastname" required  ngModel >
+                          </div><br>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <div class="form-group">
+                                  <label for="fullName">Description</label>
+                                  <input type="text" class="form-control" formControlName="description"  placeholder="description" [(ngModel)]="clientdata.description" required  ngModel >
+                              </div> <br>
+                              
+                              <label for="eMail">Email</label>
+                              <input readonly style="cursor: not-allowed;" type="email" class="form-control" formControlName="email" id="eMail"[(ngModel)]="clientdata.email" placeholder="Enter email ID">
+                          </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="phone">Phone</label>
+                              <input type="number" min="0"  class="form-control" class="form-control" formControlName="phone"  placeholder="phone" oninput="validity.valid||(value='');" [(ngModel)]="clientdata.phone" required  ngModel   placeholder="+216" >
+                          </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="website">Birthday</label>
+                              <input type="date" class="form-control" [defaultValue]="" formControlName="birthday"  placeholder="birthday" [(ngModel)]="clientdata.birthday" required  ngModel >
+                          </div><br>
+                      </div>
+                  </div>
+                  <div class="row gutters">
+        
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="Street">Adress</label>
+                              <input type="text" class="form-control" [defaultValue]="" formControlName="adresse"  placeholder="adresse" [(ngModel)]="clientdata.adresse" required  ngModel >
+                          </div><br>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="ciTy">Job</label>
+                              <input type="text" class="form-control" [defaultValue]="" formControlName="job"  placeholder="job" [(ngModel)]="clientdata.job" required  ngModel >
+                          </div>
+                      </div>
+                      
+          
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="zIp">Password</label>
+                              <input type="password" class="form-control" [defaultValue]="" formControlName="password"  placeholder="password" [(ngModel)]="clientdata.password" required  ngModel >
+                          </div><br>
+                      </div>
+                     <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group">
+                              <label for="sTate">password_confirmation</label>
+                              <input type="password" class="form-control" [defaultValue]="" formControlName="password_confirmation"  placeholder="password_confirmation" [(ngModel)]="freelancerdata.password_confirmation" required  ngModel >
+                          </div>
+                      </div>-->
+                  </div>
+              
+                  <div class="row gutters">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <div class="text-right">
+                              <button type="button" routerLink="/dashbord-client" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+                              <button type="submit" class="btn btn-primary px-4" style="background-color: rgb(38, 8,158);">Save Changes </button>
+                          </div>
+                      </div>
+                  </div>
+
+              </form>
+              </div>
+          </div>
+          </div>
+          </div>
+
+
+
+    </div>
+
+  </div>
+</section>

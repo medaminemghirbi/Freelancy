@@ -1,57 +1,48 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
+
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Router } from '@angular/router';
-
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 @Component({
-  selector: 'app-dashbord-client',
-  templateUrl: './dashbord-client.component.html',
-  styleUrls: ['./dashbord-client.component.css']
+  selector: 'app-dashbord-freelancer',
+  templateUrl: './dashbord-freelancer.component.html',
+  styleUrls: ['./dashbord-freelancer.component.css']
 })
-export class DashbordClientComponent implements OnInit {
+export class DashbordFreelancerComponent implements OnInit {
 
   @ViewChild('htmlData') htmlData!: ElementRef;
   docDefinition: any;
   url: any
 
-  clientdata: any;
+  freelancerdata: any;
   dataArray: any;
   messageErr: any;
-  countAllClientt: any;
-  allmissions:number=0;
-  notactivemissions:number=0;
-  activemissions:number=0;
-  endedmissions:number=0;
-  constructor(private usersService: UsersService, private route:Router) {
-    this.clientdata = JSON.parse(sessionStorage.getItem('clientdata')!);
+  countAllFreelancerr: any;
 
+  constructor(private usersService: UsersService,private router: Router) {
+    this.freelancerdata = JSON.parse(sessionStorage.getItem('freelancerdata')!);
+    console.log(this.freelancerdata)
 
-    this.countAllClientt = JSON.parse(sessionStorage.getItem('countAllClientt')!);
+    this.countAllFreelancerr = JSON.parse(sessionStorage.getItem('countAllFreelancerr')!);
+
   }
-
   ngOnInit(): void {
-    this.usersService.countAllClient(this.clientdata.id).subscribe(data => {
 
+    this.usersService.countAllFreelancer(this.freelancerdata.id).subscribe(data => {
 
-      sessionStorage.setItem('countAllClientt', JSON.stringify(data));
-
-      this.dataArray = data
-      this.allmissions = this.dataArray.allmissions
-      this.notactivemissions = this.dataArray.notactivemissions
-      this.activemissions = this.dataArray.activemissions
-      this.endedmissions = this.dataArray.endedmissions
-
-      , (err: HttpErrorResponse) => {
-  
+      console.log(data)
+      sessionStorage.setItem('countAllFreelancerr', JSON.stringify(data));
+      this.dataArray = data, (err: HttpErrorResponse) => {
+        console.log(err)
         this.messageErr = "We dont't found this user in our database"
       }
-
+      console.log(this.dataArray)
     })
-
   }
+
 
   async getPdf() {
 
@@ -60,29 +51,30 @@ export class DashbordClientComponent implements OnInit {
       content: [
 
         {
-          text: 'Client Statistique System',
+          text: 'Freelancy Statistique System',
           fontSize: 16,
           alignment: 'center',
           color: '#047886'
         },
 
+       
 
         {
-          text: 'Client Details',
+          text: 'Freelancer Details',
           style: 'sectionHeader'
         },
         {
           columns: [
             [
               {
-                text: "Full Name : " + this.clientdata.lastname + " " + this.clientdata.firstname,
+                text: "Full Name : " + this.freelancerdata.lastname + " " + this.freelancerdata.firstname,
                 fontSize: 20,
                 bold: true,
-
+      
                 decoration: 'underline',
                 color: 'skyblue'
               },
-
+              
             ],
             [
 
@@ -96,20 +88,24 @@ export class DashbordClientComponent implements OnInit {
         {
           columns: [
             [
-
-
-              { text: "Not Active Missions : " + this.countAllClientt.notactivemissions },
+              { text: "Requests : " + this.countAllFreelancerr.requests },
 
               {
-                text: "Active Missions : " + this.countAllClientt.activemissions,
+                text: "Active Missions : " + this.countAllFreelancerr.activemissions,
                 bold: true
               },
               {
 
-                text: "Ended Missions  : " + this.countAllClientt.endedmissions,
+                text: "Ended Missions  : " + this.countAllFreelancerr.endedmissions,
 
               },
-              { text: "All Missions : " + this.countAllClientt.allmissions },
+
+
+              { text: "Education : " + this.countAllFreelancerr.education },
+              { text: "Language : " + this.countAllFreelancerr.language },
+              { text: "Experience : " + this.countAllFreelancerr.experience },
+              { text: "Favorite  : " + this.countAllFreelancerr.favoris },
+
 
 
 
@@ -134,10 +130,11 @@ export class DashbordClientComponent implements OnInit {
     };
     pdfMake.createPdf(this.docDefinition).open();
   }
-  logout(){
 
+  logout(){
+  
     this.usersService.logout();
-    this.route.navigate(['/login']);
+    this.router.navigate(['/login']);
    
   }
 }

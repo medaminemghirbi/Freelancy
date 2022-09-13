@@ -1,0 +1,208 @@
+<app-freelancer-header></app-freelancer-header>
+
+<div class="sidebar">
+    <div class="sidebar-content text-dark">
+      <div class="account">
+        <div class="image img-cir img-80">
+          <img [src]="freelancerdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+  
+        </div><br>
+        <h6 class="name">{{freelancerdata.lastname}} {{freelancerdata.firstname}}</h6>
+        <h4 class="name">{{freelancerdata.role}}</h4>
+        <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+      
+      </div>
+      <nav class="nav flex-column">
+       
+        <a routerLink="/dashboard-freelancer" class="nav-link"><i
+            class="fas fa-tachometer-alt"></i>
+        dashboard Freelancer</a>
+
+    <a routerLink="/postulated-missions-freelancer" class="nav-link">
+        <i class="fas fa-envelope"></i>Requested missions </a>
+
+        <div id="accordion">
+        <a  class="nav-link nav-link-dropdown-toggle"
+        data-toggle="collapse" data-target="#collapseOne" 
+        aria-expanded="true"
+         aria-controls="collapseOne"><i class="fas fa-briefcase"></i>
+         My Mission List   <i class="fa fa-caret-down"></i> </a>
+    <div id="collapseOne" class="collapse " 
+    aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="bg-black py-2 collapse-inner rounded">
+
+            <a routerLink="/active-missions-freelancer"class="nav-link"><i
+                    class="fas fa-chart-line"></i> To Do Mission </a>
+            <a routerLink="/ended-missions-freelancer"class="nav-link"><i
+                    class="fas fa-clipboard-list"></i> Ended Mission </a>
+        </div>
+    </div>
+</div>
+<div id="accordion">
+    <a  class="nav-link nav-link-dropdown-toggle"
+    data-toggle="collapse" data-target="#collapsetwo" 
+    aria-expanded="true"
+     aria-controls="collapsetwo"><i class="fas fa-briefcase"></i>
+     Settings   <i class="fa fa-caret-down"></i> </a>
+<div id="collapsetwo" class="collapse " 
+aria-labelledby="headingOne" data-parent="#accordion">
+    <div class="bg-black py-2 collapse-inner rounded">
+        <a routerLink="/profil-freelancer" class="nav-link"><i class="fas fa-user"></i>
+            Profil
+            Details </a>
+        <a routerLink="/education" class="nav-link"><i class="fas fa-school"></i>
+            Education
+        </a>
+        <a routerLink="/experience" class="nav-link"><i class="fas fa-building"></i>
+            Experiance </a>
+        <a routerLink="/skills" class="nav-link"><i class="fas fa-building"></i>
+            Skills
+        </a>
+    </div>
+</div>
+</div>
+
+
+    <a [routerLink]="['/generatecv',freelancerdata.id]" class="nav-link"><i
+            class="fas fa-id-card"></i> Generate My CV </a>
+
+    <a routerLink="/favoris" class="nav-link"><i class="fas fa-heart"></i> My Favoris List
+    </a>
+    <a (click)="logout()"class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout </a>
+
+      </nav>
+    </div>
+  </div>
+  <section class="content"><br><br>
+    <div style="text-align: right;">
+        <button class="btn btn-primary"  (click)="open()"> Open  <i class="fa fa-eye"></i> </button>
+    <button class="btn btn-warning" (click)="print()"> Print <i class="fa fa-print"></i> </button>
+    <button class="btn btn-success"  (click)="download()"> Download  <i class="fas fa-download"></i> </button>
+    </div>
+    
+    <div class="container"><br>
+    <div class="main-body">
+        <div class="row">
+    
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                     
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <h4> Freelancer Details : </h4>
+                            <div class="mt-3" *ngFor="let item of dataArray">
+                                <h5>{{item.firstname}} {{item.lastname}}</h5>
+                                <h6 class="title"
+                                    *ngIf="item.email && item.email !== 'null' ">
+                                    {{item.email}}
+                                </h6>
+                                <h6 class="title"
+                                    *ngIf="item.phone && item.phone !== 'null' ">
+                                    {{item.phone}}
+                                </h6>
+    
+    
+                                <h6 class="title"
+                                    *ngIf="item.adresse && item.adresse !== 'null' ">
+                                    {{item.adresse}}</h6>
+    
+    
+    
+                            </div>
+                            <h4> Client Details : </h4>
+                            <div class="mt-3" *ngFor="let item of dataArrayy">
+    
+    
+                                <h5>{{item.client.firstname}} {{item.client.lastname}}</h5>
+                                <h6 class="title">
+                                    {{item.client.email}}
+                                </h6>
+                                <h6 class="title"
+                                    *ngIf="item.client.phone && item.client.phone !== 'null' ">
+                                    {{item.client.phone}}
+                                </h6>
+    
+                                <h6 class="title"
+                                    *ngIf="item.client.adresse && item.client.adresse !== 'null' ">
+                                    {{item.client.adresse}}</h6>
+    
+    
+    
+    
+                            </div>
+              
+                        </div>
+    
+    
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-lg-8">
+                <div class="card" *ngFor="let item of dataArrayy">
+                    <div class="card-body">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h4> Mission Details : </h4>
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mission Title </h6>
+                                    </div>
+                                    <h6 class="col-sm-5">
+                                        {{item.title}}
+                                    </h6>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Description </h6>
+                                    </div>
+                                    <h6 class="col-sm-5">
+                                        {{item.description}}
+                                    </h6>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Budget </h6>
+                                    </div>
+                                    <h6 class="col-sm-5">
+                                        {{item.budget}} TND
+                                    </h6>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Begining Date </h6>
+                                    </div>
+                                    <h6 class="col-sm-5">
+                                        {{item.beginingDate}}
+                                    </h6>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Duration </h6>
+                                    </div>
+                                    <h6 class="col-sm-5">
+                                        {{item.duration}} Months
+                                    </h6>
+                                </div>
+    
+    
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+    
+    
+    
+    
+            </div>
+        </div>
+    </div>
+    </div>
+    
+  </section>
+  

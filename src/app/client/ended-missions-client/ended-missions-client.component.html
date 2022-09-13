@@ -1,0 +1,99 @@
+<app-client-header></app-client-header>
+
+<div class="sidebar">
+  <div class="sidebar-content text-dark">
+    <div class="account">
+      <div class="image img-cir img-80">
+        <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
+
+      </div><br>
+      <h4 class="name">Client</h4>
+      <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
+    
+    </div>
+    <nav class="nav flex-column">
+        <a routerLink="/dashbord-client" class="nav-link "><i class="fas fa-tachometer-alt"></i> dashboard </a>
+        <a  routerLink="/addmission" class="nav-link  "><i class="fa fa-clipboard"></i> Post New Mission </a>
+        <a  routerLink="/postulated-missions-client" class="nav-link  " ><i  class="fas fa-envelope"></i>My Missions Requests </a>             
+        <a  routerLink="/missions-client" class="nav-link "><i class="fas fa-laptop"></i> My all Missions </a>              
+        <a  routerLink="/active-missions-client" class="nav-link "><i class="fas fa-chart-line"></i> To Do Missions </a>   
+        <a  routerLink="/ended-missions-client" class="nav-link "><i class="fas fa-clipboard-list" ></i> Ended Missions </a>   
+        <a  routerLink="/edit-client" class="nav-link "><i class="fas fa-user"></i> My Account </a>              
+    </nav>
+  </div>
+</div>
+<section class="content"><br>
+  <div class="container-fluid py-4">
+    <section class="breadcrumb">
+      <div class="row">
+        <div class="col">
+          You are Here Webmaster / Ended Missions List for Client
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">All Ended Missions ({{counter}})</h6>
+  </div>
+  <form class="card-header py-3">
+    <div class="input-group">
+      <input type="text" name="name" class="form-control" [(ngModel)]="searchedKeyword"
+        placeholder="Search for...">
+
+    </div>
+  </form><br>
+  <div class="table-responsive">
+    <table class="table table-bordered"  width="100%" *ngIf="dataArray" >
+      <thead>
+        <tr >                        
+            <th scope="col"> completed </th> 
+            <th scope="col"> Filepath </th> 
+            <th scope="col"> Title Mission </th>  
+            <th scope="col" >Description</th>
+            <th scope="col"> Email Freelancer </th> 
+            <th colspan="2">Pay Freelancer  </th>
+            <th scope="col">Rate Freelancer  </th>
+          </tr>
+      </thead>
+      <tbody>         
+        <tr *ngFor="let item of dataArray  |paginate: { itemsPerPage: 3, currentPage: p } | filter:searchedKeyword ; index as i"
+        >
+       
+            
+          <td> <button *ngIf="item.completed==true " class="btn btn-success"> {{item.completed}} </button> 
+            <button *ngIf="item.completed==false " class="btn btn-danger"> {{item.completed}} </button> 
+          </td>
+          <td><a href="{{item.filepath}}">Go To file</a></td> 
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td> 
+            <td > <a [routerLink]="['/detail-freelancer',item.freelancer_id]" >  {{item.freelancer.email }} </a></td> 
+          <!--  <td> {{item.freelancer.reviews_count}}  </td>
+            <td>     
+                <button (click)="delete(item.id , i)" class="btn btn-outline-danger"> Delete </button> 
+             </td>-->
+             <td>
+                   <div style="text-align:center;" id="myPaypalButtons"></div>
+                   
+                   <button (click)='pay({receiverWallet: "62838361e09cf743223912f2",amount:item.budget,firstName:"y",lastName:"x",phoneNumber: "58277084",email:item.freelancer.email  })'  class="btn btn-outline-warning"> Konnect Service  </button>
+                   </td>
+                   <td>                            <button (click)="makePayment(item.budget )" class="btn btn-outline-success"> Stripe  </button></td>
+              
+         <td>
+          <button    (click)="addreview(item.id , item.freelancer.id)" type="button" class="btn btn-outline-primary px-3">
+            <i class="far fa-star" aria-hidden="true"> {{item.freelancer.reviews_count}}</i>
+          </button>
+          
+             </td>
+
+
+          </tr>
+          <tr *ngIf="dataArray.length==0">
+            <td colspan="8"style="text-align:center;">no data found</td>
+          </tr>
+    </tbody>
+    </table>
+</div>
+<div style="text-align:right;">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</section>

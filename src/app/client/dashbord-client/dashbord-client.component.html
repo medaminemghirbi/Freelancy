@@ -7,7 +7,8 @@
         <img [src]="clientdata.user_image_url" width="100"  class="img-fluid rounded-circle" />
 
       </div><br>
-      <h4 class="name">Client</h4>
+      <h6 class="name">{{clientdata.lastname}} {{clientdata.firstname}}</h6>
+      <h4 class="name">{{clientdata.role}}</h4>
       <a href="" >  <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign out</a>
     
     </div>
@@ -51,7 +52,7 @@
                                         All Missions
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        {{dataArray.allmissions}}
+                                        {{allmissions}}
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -71,7 +72,7 @@
                                         routerLink="/postulated-missions-client">
                                         Not Active Missions </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        {{dataArray.notactivemissions}}
+                                        {{notactivemissions}}
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -93,7 +94,7 @@
                                         Active Missions
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        {{dataArray.activemissions}}
+                                        {{activemissions}}
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -115,7 +116,7 @@
                                     class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Ended Missions </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        {{dataArray.endedmissions}}
+                                        {{endedmissions}}
                                     </div>
                                 </div>
                                 <div class="col-auto">
